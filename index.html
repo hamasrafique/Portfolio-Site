@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamas Rafique — Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #050810;
+    --bg2: #080d18;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --glass-hover: rgba(255,255,255,0.07);
+    --accent: #4f8ef7;
+    --accent2: #7c3aed;
+    --accent3: #06b6d4;
+    --text: #e8edf7;
+    --muted: #8892a4;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79,142,247,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,142,247,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── ORBS ── */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.25;
+  }
+  .orb1 { width: 600px; height: 600px; background: #4f8ef7; top: -200px; left: -200px; }
+  .orb2 { width: 500px; height: 500px; background: #7c3aed; bottom: -150px; right: -150px; }
+  .orb3 { width: 300px; height: 300px; background: #06b6d4; top: 50%; left: 50%; transform: translate(-50%,-50%); opacity: 0.12; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(5,8,16,0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  h1.hero-name {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #e8edf7 0%, #8892a4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 300;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+  .hero-title span {
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+  }
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: #050810;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 6px;
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-ghost:hover { background: var(--glass-hover); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 7rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+  .about-text p strong { color: var(--text); font-weight: 600; }
+  .about-stack { display: flex; flex-direction: column; gap: 1rem; }
+  .stack-group-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .tag {
+    padding: 0.4rem 0.9rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── PROJECTS ── */
+  #projects {
+    padding: 7rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover {
+    border-color: rgba(79,142,247,0.3);
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-4px);
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .project-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .project-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.75;
+    flex: 1;
+  }
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+  }
+  .project-tech {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .project-tech span {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent3);
+    letter-spacing: 0.05em;
+  }
+  .project-link {
+    font-size: 1.1rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .project-link:hover { color: var(--accent); }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 7rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 4rem 3rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent2), var(--accent), var(--accent3), transparent);
+  }
+  .contact-tagline {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .contact-tagline span { color: var(--accent); }
+  .contact-desc {
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+  .contact-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .contact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.4rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-family: var(--mono);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .contact-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(79,142,247,0.08);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--glass-border);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  footer span { color: var(--accent); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, #about, #projects, #contact { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-card { padding: 2.5rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; transition: none; }
+    .hero-scroll { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">HR_</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-label">Available for opportunities</div>
+  <h1 class="hero-name">Hamas<br>Rafique</h1>
+  <p class="hero-title"><span>Web Developer</span></p>
+  <p class="hero-desc">
+    I build fast, clean, and accessible web experiences — from polished interfaces to robust full-stack systems. Based in Karachi, working worldwide.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View My Work ↓</a>
+    <a href="#contact" class="btn-ghost">Get In Touch</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="fade-in">
+    <div class="section-label">01 — About</div>
+    <h2 class="section-title">The person<br>behind the code</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+<p>
+  I'm a Web Developer and WordPress Developer focused on building fast, responsive, and user-centered digital experiences. I enjoy turning ideas into clean, functional interfaces that feel smooth and intuitive to use.
+</p>
+
+<p>
+  My work sits at the intersection of <strong>Frontend development and WordPress development</strong> — where I focus on writing maintainable code, building scalable components, and creating customizable WordPress solutions that are both flexible and performance-optimized.
+</p>
+
+<p>
+  Whether it's developing responsive web applications, customizing WordPress themes, integrating APIs, or optimizing performance, I care about writing clean code that delivers real value in production environments.
+</p>
+    </div>
+   <div class="about-stack fade-in">
+  <div>
+    <div class="stack-group-label">Frontend</div>
+    <div class="stack-tags">
+      <span class="tag">Next.js</span>
+      <span class="tag">HTML5</span>
+      <span class="tag">CSS3</span>
+    </div>
+  </div>
+
+  <div>
+    <div class="stack-group-label">Backend</div>
+    <div class="stack-tags">
+      <span class="tag">Node.js</span>
+      <span class="tag">Express</span>
+      <span class="tag">MongoDB</span>
+    </div>
+  </div>
+
+  <div>
+    <div class="stack-group-label">CMS / WordPress</div>
+    <div class="stack-tags">
+      <span class="tag">WordPress</span>
+      <span class="tag">Elementor</span>
+      <span class="tag">Theme Customization</span>
+      <span class="tag">WooCommerce</span>
+      <span class="tag">ACF</span>
+      <span class="tag">Custom Post Types</span>
+      <span class="tag">Plugin Customization</span>
+      <span class="tag">Performance Optimization</span>
+      <span class="tag">HTML to WordPress Dynamic</span>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="fade-in">
+    <div class="section-label">02 — Projects</div>
+    <h2 class="section-title">Things I've built</h2>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- 001 -->
+    <div class="project-card fade-in">
+      <div class="project-num">001</div>
+      <h3>JKI Welfare Trust Website</h3>
+      <p>
+        A responsive charity website built to support donation campaigns, organizational information, and volunteer engagement.
+        Focused on clean UI, accessibility, and mobile-first user experience.
+      </p>
+      <div class="project-footer">
+        <div class="project-tech">
+          <span>WordPress</span> · <span>HTML</span> · <span>CSS</span> · <span>JavaScript</span>
+        </div>
+        <a href="#" class="project-link" aria-label="View project">↗</a>
+      </div>
+    </div>
+
+    <!-- 002 -->
+    <div class="project-card fade-in">
+      <div class="project-num">002</div>
+      <h3>Personal Developer Portfolio</h3>
+      <p>
+        A modern animated portfolio website designed to showcase my skills, projects, and professional identity.
+        Built with a focus on UI/UX, responsiveness, and smooth interactions.
+      </p>
+      <div class="project-footer">
+        <div class="project-tech">
+          <span>HTML</span> · <span>CSS</span> · <span>JavaScript</span>
+        </div>
+        <a href="#" class="project-link" aria-label="View project">↗</a>
+      </div>
+    </div>
+
+    <!-- 003 -->
+    <div class="project-card fade-in">
+      <div class="project-num">003</div>
+      <h3>WordPress Business Websites</h3>
+      <p>
+        Developed and customized multiple WordPress websites for small businesses, focusing on service pages,
+        landing pages, and conversion-optimized layouts with SEO-friendly structure.
+      </p>
+      <div class="project-footer">
+        <div class="project-tech">
+          <span>WordPress</span> · <span>Elementor</span> · <span>Custom CSS</span>
+        </div>
+        <a href="#" class="project-link" aria-label="View project">↗</a>
+      </div>
+    </div>
+
+    <!-- 004 -->
+    <div class="project-card fade-in">
+      <div class="project-num">004</div>
+      <h3>Weather App (API Project)</h3>
+      <p>
+        A weather application that fetches real-time data using OpenWeather API with geolocation support
+        and dynamic UI updates based on live weather conditions.
+      </p>
+      <div class="project-footer">
+        <div class="project-tech">
+          <span>JavaScript</span> · <span>API Integration</span> · <span>CSS</span>
+        </div>
+        <a href="#" class="project-link" aria-label="View project">↗</a>
+      </div>
+    </div>
+
+    <!-- 005 -->
+    <div class="project-card fade-in">
+      <div class="project-num">005</div>
+      <h3>Admin Dashboard UI</h3>
+      <p>
+        A responsive admin dashboard UI with analytics cards, sidebar navigation, and modern layout design.
+        Built for practicing scalable frontend structure and UI systems.
+      </p>
+      <div class="project-footer">
+        <div class="project-tech">
+          <span>React</span> · <span>CSS</span> · <span>UI Design</span>
+        </div>
+        <a href="#" class="project-link" aria-label="View project">↗</a>
+      </div>
+    </div>
+
+    <!-- 006 -->
+    <div class="project-card fade-in">
+      <div class="project-num">006</div>
+      <h3>Frontend Practice Projects</h3>
+      <p>
+        A collection of small UI components and frontend experiments built to improve development skills,
+        layout handling, and responsive design techniques.
+      </p>
+      <div class="project-footer">
+        <div class="project-tech">
+          <span>HTML</span> · <span>CSS</span> · <span>JavaScript</span>
+        </div>
+        <a href="#" class="project-link" aria-label="View project">↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-card fade-in">
+    <div class="section-label" style="text-align:center; margin-bottom: 1.5rem;">03 — Contact</div>
+    <h2 class="contact-tagline">Let's build something<br><span>great together.</span></h2>
+    <p class="contact-desc">
+      Open to freelance projects, full-time roles, and interesting collaborations. If you have an idea or an opportunity, my inbox is always open.
+    </p>
+    <a href="mailto:hamasrafique65@gmail.com" class="btn-primary" style="margin: 0 auto 2.5rem; display: inline-flex;">
+      Say Hello →
+    </a>
+    <div class="contact-links">
+      <a href="https://github.com/hamasrafique" class="contact-pill" target="_blank" rel="noopener">⌥ GitHub</a>
+      <a href="https://www.linkedin.com/in/hamas-rafique-2527773b7" class="contact-pill" target="_blank" rel="noopener">in LinkedIn</a>
+      <a href="mailto:hamasrafique65@gmail.com" class="contact-pill">✉ Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Hamas Rafique</span> — Designed &amp; built with care · Karachi, PK · <span id="year"></span>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach((el, i) => {
+    el.style.transitionDelay = (i % 3 * 0.1) + 's';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
